@@ -1,0 +1,4 @@
+on|prueba|192.168.0.101|None|all [ all]|None|rmod_none|None|None|None|None|None|None|
+on|testeo|192.168.0.101|None|all [ all]|None|rmod_none|None|None|None|None|None|None|
+None|pent|192.168.100.15/24|None|all [ all]|None|rmod_none|None|None|None|None|None|None|
+None|pruebaCPO|192.168.0.1|None|all [ all]|None|rmod_int_bpg|google.com|on|safesearch|safesearch|prueba|on|
