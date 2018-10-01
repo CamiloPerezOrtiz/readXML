@@ -1379,6 +1379,12 @@
 				<color>bg-info</color>
 				<if></if>
 			</sep0>
+			<sep1>
+				<row>fr2</row>
+				<text></text>
+				<color>bg-info</color>
+				<if></if>
+			</sep1>
 		</separator>
 	</nat>
 </pfsense>

@@ -1,6 +1,8 @@
 #library to handle XML documents
 from lxml import etree
-xmlDocument = etree.parse("pfSense.xml")
+
+
+xmlDocument = etree.parse("pfSense.xml") #your xml goes here
 root = xmlDocument.getroot()
 
 #find "alias" tag and show its content
@@ -92,3 +94,147 @@ for config in squidguardacl:
 	txtSquidguardacl.write("\n")
 txtSquidguardacl.close()
 
+#Filter TAG
+txtFilter = open("filter.txt", "w")
+filterTag = root.find("filter")
+for rule in filterTag:
+	txtFilter.write(str(rule.tag) + "|")
+	#***********************************
+	if str(rule.tag) != "rule":  #this is for separator Tag
+		for field in rule:
+			txtFilter.write(str(field.tag) + ":" + str(field.text) + "|") 
+	#***********************************  this all is for rule Tag
+	if rule.find("id") is not None:
+		txtFilter.write(str(rule.find("id").tag) + ":" + str(rule.find("id").text) + "|")
+		txtFilter.write(str(rule.find("tracker").tag) + ":" + str(rule.find("tracker").text) + "|")
+		txtFilter.write(str(rule.find("type").tag) + ":" + str(rule.find("type").text) + "|")
+		txtFilter.write(str(rule.find("interface").tag) + ":" + str(rule.find("interface").text) + "|")
+		txtFilter.write(str(rule.find("ipprotocol").tag) + ":" + str(rule.find("ipprotocol").text) + "|")
+		txtFilter.write(str(rule.find("tag").tag) + ":" + str(rule.find("tag").text) + "|")
+		txtFilter.write(str(rule.find("tagged").tag) + ":" + str(rule.find("tagged").text) + "|")
+		txtFilter.write(str(rule.find("max").tag) + ":" + str(rule.find("max").text) + "|")
+		txtFilter.write(str(rule.find("max-src-nodes").tag) + ":" + str(rule.find("max-src-nodes").text) + "|")
+		txtFilter.write(str(rule.find("max-src-conn").tag) + ":" + str(rule.find("max-src-conn").text) + "|")
+		txtFilter.write(str(rule.find("max-src-states").tag) + ":" + str(rule.find("max-src-states").text) + "|")
+		txtFilter.write(str(rule.find("statetimeout").tag) + ":" + str(rule.find("statetimeout").text) + "|")
+		txtFilter.write(str(rule.find("statetype").tag) + ":" + str(rule.find("statetype").text) + "|")
+		txtFilter.write(str(rule.find("os").tag) + ":" + str(rule.find("os").text) + "|")
+		#txtFilter.write(str(rule.find("source").tag) + ":" + str(rule.find("source").text) + "|")  ***Etiqueta pendiente
+		#txtFilter.write(str(rule.find("destination").tag) + ":" + str(rule.find("destination").text) + "|")  ***Etiqueta pendiente
+		txtFilter.write(str(rule.find("descr").tag) + ":" + str(rule.find("descr").text) + "|")
+		for fields in rule.find("created"): 
+			txtFilter.write("created_"+str(fields.tag) + ":" + str(fields.text) + "|")
+		for fields in rule.find("updated"): 
+			txtFilter.write("updated_"+str(fields.tag) + ":" + str(fields.text) + "|")
+	#***********************************
+	elif rule.find("type") is not None:
+		for fields in rule:
+			if str(fields.tag) == "source":
+				for field in fields:
+					txtFilter.write("source" + str(field.tag) + ":" + str(field.text) + "|")
+			elif str(fields.tag) == "destination":
+				for field in fields:
+					txtFilter.write("destination_" + str(field.tag) + ":" + str(field.text) + "|")
+			else:
+				txtFilter.write(str(fields.tag) + ":" + str(fields.text) + "|")
+	#***********************************
+	elif rule.find("associated-rule-id") is not None:
+		for fields in rule:
+			if str(fields.tag) == "source":
+				 for field in fields:
+					txtFilter.write("source_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif str(fields.tag) == "destination":
+				for field in fields:
+					txtFilter.write("destination_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif str(fields.tag) == "created":
+				for field in fields:
+					txtFilter.write("created_" + str(field.tag) + ":" + str(field.text) + "|") 
+			elif str(fields.tag) == "updated":
+				for field in fields:
+					txtFilter.write("updated_" + str(field.tag) + ":" + str(field.text) + "|")
+			else:
+				txtFilter.write(str(fields.tag) + ":" + str(fields.text) + "|")
+	else:
+		pass
+	txtFilter.write("\n")
+txtFilter.close()
+
+#Nat tag
+txtNat = open("nat.txt", "w")
+natTag = root.find("nat")
+for rule in natTag:
+	#***********************************
+	if str(rule.tag) == "outbound":
+		for outbound in rule:
+			txtNat.write(str(rule.tag) +"_rule" + "|")
+			for fields in outbound:
+				if fields.tag == "source":
+					for field in fields:
+						txtNat.write("source_" + str(field.tag) + ":" + str(field.text) + "|")
+				elif fields.tag == "destination":
+					for field in fields:
+						txtNat.write("destination_" + str(field.tag) + ":" + str(field.text) + "|")
+				elif fields.tag == "created":
+					for field in fields:
+						txtNat.write("created_" + str(field.tag) + ":" + str(field.text) + "|")
+				elif fields.tag == "updated":
+					for field in fields:
+						txtNat.write("updeted_" + str(field.tag) + ":" + str(field.text) + "|")
+				else:
+					txtNat.write(str(fields.tag) + ":" + str(fields.text) + "|")
+			txtNat.write("\n")
+	
+	#***********************************
+	elif str(rule.tag) == "separator":
+		
+
+		for separator in rule:
+			txtNat.write("separator_" + str(separator.tag) + "|")
+			
+			for fields in separator:
+	
+
+				txtNat.write(str(fields.tag) + ":" + str(fields.text) + "|")
+			txtNat.write("\n")			
+
+	else:
+		txtNat.write(str(rule.tag) + "|")
+
+	if str(rule.tag) == "rule":
+		for fields in rule:
+			if fields.tag == "source":
+				for field in fields:
+					txtNat.write("source_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif fields.tag == "destination":
+				for field in fields:
+					txtNat.write("destination_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif fields.tag == "created":
+				for field in fields:
+					txtNat.write("created_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif fields.tag == "updated":
+				for field in fields:
+					txtNat.write("updeted_" + str(field.tag) + ":" + str(field.text) + "|")
+			else:
+				txtNat.write(str(fields.tag) + ":" + str(fields.text) + "|")
+	#***********************************
+	elif str(rule.tag) == "onetoone":
+		for fields in rule:
+			if fields.tag == "source":
+				for field in fields:
+					txtNat.write("source_" + str(field.tag) + ":" + str(field.text) + "|")
+			elif fields.tag == "destination":
+				for field in fields:
+					txtNat.write("destination_" + str(field.tag) + ":" + str(field.text) + "|")
+			else:
+				txtNat.write(str(fields.tag) + ":" + str(fields.text) + "|")
+	#***********************************
+	elif rule.tag == "separator":
+		pass
+
+
+
+	if str(rule.tag) == "outbound":
+		pass
+	else:
+		txtNat.write("\n")
+txtNat.close()

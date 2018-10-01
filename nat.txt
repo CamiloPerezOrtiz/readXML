@@ -1,0 +1,11 @@
+rule|source_any:None|destination_network:wanip|destination_port:22022|protocol:tcp|target:192.168.100.19|local-port:22|interface:wan|descr:None|associated-rule-id:nat_5b2198d35ebcb7.59322711|updeted_time:1528928467|updeted_username:admin@192.168.0.72|created_time:1528928467|created_username:admin@192.168.0.72|
+rule|source_any:None|destination_network:wanip|destination_port:22022|protocol:tcp|target:192.168.100.29|local-port:22|interface:wan|descr:None|associated-rule-id:nat_5b2198d35ebcb7.59322711|updeted_time:1528928467|updeted_username:admin@192.168.0.72|created_time:1528928467|created_username:admin@192.168.0.72|
+rule|nordr:None|source_any:None|destination_network:wanip|destination_port:22022|protocol:tcp|interface:wan|descr:None|associated-rule-id:None|natreflection:disable|created_time:1536355650|created_username:admin@192.168.0.136|updeted_time:1536795283|updeted_username:admin@192.168.0.136|
+onetoone|external:192.168.0.19|descr:None|interface:wan|source_address:192.168.100.19|destination_any:None|
+onetoone|external:192.168.0.29|descr:None|interface:wan|source_address:192.168.100.29|destination_any:None|
+outbound_rule|source_network:192.168.2.71/32|sourceport:None|descr:Salida linx10|target:189.204.31.149|targetip:None|targetip_subnet:None|interface:wan|poolopts:None|source_hash_key:None|destination_any:None|updeted_time:1517597462|updeted_username:admin@189.211.85.244|created_time:1517597462|created_username:admin@189.211.85.244|
+outbound_rule|source_network:192.168.2.74/32|sourceport:None|descr:Atizapan|target:189.204.109.108|targetip:None|targetip_subnet:None|interface:wan|poolopts:None|source_hash_key:None|destination_any:None|created_time:1522457363|created_username:admin@189.191.243.240|updeted_time:1523292351|updeted_username:admin@189.211.85.244|
+outbound_rule|source_network:192.168.2.38/32|sourceport:None|descr:Salida WDM3|target:201.130.73.235|targetip:None|targetip_subnet:None|interface:wan|poolopts:None|source_hash_key:None|destination_any:None|updeted_time:1529615334|updeted_username:admin@200.57.253.113|
+separator_sep0|row:fr2|text:None|color:bg-info|if:None|
+separator_sep1|row:fr2|text:None|color:bg-info|if:None|
+
