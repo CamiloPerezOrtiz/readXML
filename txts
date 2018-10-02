@@ -1,7 +1,5 @@
 #ALIASES
-
-NAT         -********
-
+#NAT
 #RULES/FILTER
 #INTERFACES 
 #SQUIDGUARDDEST
